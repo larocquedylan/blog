@@ -21,7 +21,7 @@ async function Home() {
       >
         Read More
       </Link>
-      <div className="flex flex-col items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 mx-20">
       {blogPosts.map(({slug, title, abstract, publishedOn}: FrontMatter) => (
         <BlogSummaryCard
           key={slug}
