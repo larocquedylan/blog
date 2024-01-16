@@ -11,13 +11,12 @@ export async function getBlogPostList() {
       const rawContent = await readFile(`/content/${fileName}`);
       const { data: frontmatter } = matter(rawContent);
   
-      // Correct the date format right after reading the front matter
       const publishedOnCorrected = toISO8601(frontmatter.publishedOn);
   
       blogPosts.push({
         slug: fileName.replace('.mdx', ''),
         ...frontmatter,
-        publishedOn: publishedOnCorrected, // Store the corrected date
+        publishedOn: publishedOnCorrected, 
       });
     }
   
@@ -27,8 +26,6 @@ export async function getBlogPostList() {
   }
   
   function toISO8601(dateString: string) {
-    // Make sure this function correctly formats your date strings
-    // Add validation or defaulting if necessary
     return dateString.replace(/(\d{4}-\d{2}-\d{2})-(\d{2}T\d{2}:\d{2}:\d{2})(-0400)/, '$1$2-04:00');
   }
 
