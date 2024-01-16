@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { COLOR_COOKIE_THEME_NAME } from '@/constants'
 import { cookies } from 'next/headers';
+import ThemeProvider from '@/components/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,9 +21,18 @@ export default function RootLayout({
   const theme = savedTheme?.value || 'dark';
   
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={inter.className}>
-        <main>{children}</main>
+      <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        {/* <main>{children}</main> */}
       </body>
     </html>
   )
