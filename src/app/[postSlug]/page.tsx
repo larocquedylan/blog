@@ -10,12 +10,12 @@ async function BlogPost({params}) {
   const { frontmatter, content } = await loadBlogPost(params.postSlug)
 
   return (
-    <article className='flex flex-col mx-20'>
+    <article className='flex flex-col p-4 mt-2 mx-auto text-stone-950 dark:text-stone-200'>
       <BlogHero
         title={frontmatter.title}
         publishedOn={frontmatter.publishedOn}
       />
-      <div className='border rounded-lg border-fuchsia-900 p-4'>
+      <div className=''>
        <MDXRemote 
         source={content} 
         components={COMPONENT_MAP}

@@ -22,16 +22,16 @@ function BlogSummaryCard({
 
   return (
     <Link href={href} className=''>
-      <Card className="w-full max-w-md h-[30vh] shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 ">
+      <Card className="w-full max-w-md h-[30vh] shadow-sm dark:bg-black dark:hover:shadow-blue-900 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 ">
         <CardHeader>
-          <CardTitle className='text-lg'>{title}</CardTitle>
+          <CardTitle className='text-lg dark:text-blue-700'>{title}</CardTitle>
           <CardDescription> </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm">{abstract} {' '}</p>
         </CardContent>
         <CardFooter className="p-0 flex justify-between items-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400 px-8"><time dateTime={publishedOn}>{publishedOn}</time></p>
+          <p className="text-xs px-8"><time dateTime={publishedOn}>{publishedOn}</time></p>
         </CardFooter>
       </Card>
     </Link>
