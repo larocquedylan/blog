@@ -4,6 +4,7 @@ import './globals.css'
 import { COLOR_COOKIE_THEME_NAME } from '@/constants'
 import { cookies } from 'next/headers';
 import ThemeProvider from '@/components/ThemeProvider';
+import NavBar from '@/components/NavBar';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,9 +31,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <NavBar />
             {children}
-          </ThemeProvider>
-        {/* <main>{children}</main> */}
+        </ThemeProvider>
       </body>
     </html>
   )
