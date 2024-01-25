@@ -1,11 +1,13 @@
-import React from 'react';
-import { format } from 'date-fns';
+type props = {
+  title: string,
+  publishedOn: string,
+}
 
 function BlogHero({
   title,
   publishedOn,
   ...delegated
-}) {
+}: props) {
   // const humanizedDate = format(
   //   new Date(publishedOn),
   //   'MMMM do, yyyy'

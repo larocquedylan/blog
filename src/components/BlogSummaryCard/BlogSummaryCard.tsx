@@ -1,8 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns';
-
-// import Card from '@/components/Card';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 
 type FrontMatter = {
