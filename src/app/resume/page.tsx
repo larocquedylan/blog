@@ -1,7 +1,6 @@
 import ResumeHero from '@/components/ResumeHero'
 import SectionHeading from '@/components/SectionHeading'
 import ResumeCard from '@/components/ResumeCard'
-import NavBar from '@/components/NavBar'
 
 const Resume: React.FC = () => {
   return (
@@ -11,7 +10,7 @@ const Resume: React.FC = () => {
       </div>
       <div className="mt-10">
         <SectionHeading heading={'About'} />
-        <p className="font-medium text-sm md:text-md text-custom4 mb-6">
+        <p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
           {' '}
           Yo, I&apos;m Dylan, a full-stack TypeScript pro, with some marketing
           know, I got a degree from the UBC, I write rhymes and make beats, hodl

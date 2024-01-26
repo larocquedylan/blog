@@ -8,10 +8,6 @@ function BlogHero({
   publishedOn,
   ...delegated
 }: props) {
-  // const humanizedDate = format(
-  //   new Date(publishedOn),
-  //   'MMMM do, yyyy'
-  // );
 
   return (
     <header
