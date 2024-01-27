@@ -1,28 +1,40 @@
-import React from 'react';
-import BlogHero from '@/components/BlogHero';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { loadBlogPost } from '@/utils/read-file';
-import COMPONENT_MAP from '@/utils/mdx-component-map';
+import React from "react";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { loadBlogPost } from "@/utils/read-file";
+import COMPONENT_MAP from "@/utils/mdx-component-map";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+type props = {
+	title: string;
+	publishedOn: string;
+	params: any;
+};
 
+async function BlogPost({ params, title, publishedOn, ...delegated }: props) {
+	const { frontmatter, content } = await loadBlogPost(params.postSlug);
 
-async function BlogPost({params}) {
-  const { frontmatter, content } = await loadBlogPost(params.postSlug)
-
-  return (
-    <article className='flex flex-col p-4 mt-2 mx-auto text-stone-950 dark:text-stone-200'>
-      <BlogHero
-        title={frontmatter.title}
-        publishedOn={frontmatter.publishedOn}
-      />
-      <div className=''>
-       <MDXRemote 
-        source={content} 
-        components={COMPONENT_MAP}
-       />
-      </div>
-    </article>
-  );
+	return (
+		<div className="max-w-4xl mx-auto p-8">
+			<Link className="text-blue-600 hover:underline" href="/blog">
+				← All Articles
+			</Link>
+			<h1 className="mt-8 text-5xl font-bold leading-tight">
+				{frontmatter.title}
+			</h1>
+			<div className="mt-8 flex items-center space-x-2"></div>
+			<div>
+				<div className="text-sm font-semibold">Dylan LaRocque</div>
+				<div className="text-sm text-gray-500">{frontmatter.publishedOn}</div>
+			</div>
+			<Avatar>
+				<AvatarImage alt="dale" />
+				<AvatarFallback>JH</AvatarFallback>
+			</Avatar>
+			<div className="mt-10"></div>
+			<MDXRemote source={content} components={COMPONENT_MAP} />
+		</div>
+	);
 }
 
 export default BlogPost;

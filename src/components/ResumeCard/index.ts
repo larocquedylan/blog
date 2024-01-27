@@ -1,2 +1,2 @@
-export * from './ResumeCard';
-export { default } from './ResumeCard';
+export * from "./ResumeCard";
+export { default } from "./ResumeCard";

@@ -1,26 +1,15 @@
 type props = {
-  title: string,
-  publishedOn: string,
-}
+  title: string;
+  publishedOn: string;
+};
 
-function BlogHero({
-  title,
-  publishedOn,
-  ...delegated
-}: props) {
-
+function BlogHero({ title, publishedOn, ...delegated }: props) {
   return (
-    <header
-      className=''
-      {...delegated}
-    >
-      <div >
+    <header className="bg-black" {...delegated}>
+      <div>
         <h1>{title}</h1>
         <p>
-          Published on{' '}
-          <time dateTime={publishedOn}>
-            {publishedOn}
-          </time>
+          Published on <time dateTime={publishedOn}>{publishedOn}</time>
         </p>
       </div>
     </header>

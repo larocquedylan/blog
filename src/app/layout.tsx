@@ -1,44 +1,40 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { COLOR_COOKIE_THEME_NAME } from '@/constants'
-import { cookies } from 'next/headers';
-import ThemeProvider from '@/components/ThemeProvider';
-import NavBar from '@/components/NavBar';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { COLOR_COOKIE_THEME_NAME } from "@/constants";
+import { cookies } from "next/headers";
+import ThemeProvider from "@/components/ThemeProvider";
+import NavBar from "@/components/NavBar";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'dylan LaRocque',
-  description: 'a place for strong beliefs, loosely held.',
-}
+  title: "dylan LaRocque",
+  description: "a place for strong beliefs, loosely held.",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   const savedTheme = cookies().get(COLOR_COOKIE_THEME_NAME);
-  const theme = savedTheme?.value || 'dark';
-  
+  const theme = savedTheme?.value || "dark";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={inter.className}>
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NavBar />
-            {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NavBar />
+          {children}
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
-
-
-
-      

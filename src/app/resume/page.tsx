@@ -1,6 +1,6 @@
-import ResumeHero from '@/components/ResumeHero'
-import SectionHeading from '@/components/SectionHeading'
-import ResumeCard from '@/components/ResumeCard'
+import ResumeHero from "@/components/ResumeHero";
+import SectionHeading from "@/components/SectionHeading";
+import ResumeCard from "@/components/ResumeCard";
 
 const Resume: React.FC = () => {
   return (
@@ -9,9 +9,9 @@ const Resume: React.FC = () => {
         <ResumeHero />
       </div>
       <div className="mt-10">
-        <SectionHeading heading={'About'} />
+        <SectionHeading heading={"About"} />
         <p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
-          {' '}
+          {" "}
           Yo, I&apos;m Dylan, a full-stack TypeScript pro, with some marketing
           know, I got a degree from the UBC, I write rhymes and make beats, hodl
           BTC, guiding ethics are to feed more than I eat and to create more
@@ -19,7 +19,7 @@ const Resume: React.FC = () => {
         </p>
       </div>
       <div className="mt-10">
-        <SectionHeading heading={'Work Experience'} />
+        <SectionHeading heading={"Work Experience"} />
         <div className="space-y-6">
           <ResumeCard
             title="Software Engineering Intern | Microsoft"
@@ -66,7 +66,7 @@ const Resume: React.FC = () => {
         </div>
       </div>
       <div className="mt-10">
-        <SectionHeading heading={'Projects'} />
+        <SectionHeading heading={"Projects"} />
         <div className="space-y-6">
           <ResumeCard
             date="09 2023"
@@ -102,7 +102,7 @@ const Resume: React.FC = () => {
           />
         </div>
         <div className="mt-10">
-          <SectionHeading heading={'Education'} />
+          <SectionHeading heading={"Education"} />
           <div className="space-y-6">
             <ResumeCard
               date="09 2016 - 05 2020"
@@ -138,7 +138,7 @@ const Resume: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Resume
+export default Resume;
