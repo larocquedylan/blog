@@ -5,13 +5,18 @@ import COMPONENT_MAP from "@/utils/mdx-component-map";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-type props = {
-	title: string;
-	publishedOn: string;
-	params: any;
-};
+interface BlogPostParams {
+	postSlug: string;
+}
 
-async function BlogPost({ params, title, publishedOn, ...delegated }: props) {
+interface BlogPostProps {
+	params: BlogPostParams;
+}
+
+export default async function BlogPost({
+	params,
+	...delegated
+}: BlogPostProps) {
 	const { frontmatter, content } = await loadBlogPost(params.postSlug);
 
 	return (
@@ -36,5 +41,3 @@ async function BlogPost({ params, title, publishedOn, ...delegated }: props) {
 		</div>
 	);
 }
-
-export default BlogPost;
