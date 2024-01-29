@@ -11,7 +11,6 @@ interface blogPostList {
 
 export async function getBlogPostList() {
 	const fileNames = await readDirectory("/content");
-
 	const blogPosts: blogPostList[] = [];
 
 	for (let fileName of fileNames) {
@@ -25,17 +24,12 @@ export async function getBlogPostList() {
 			title: frontmatter.title,
 		});
 	}
-
-	console.log("blog post after push", blogPosts);
 	return blogPosts.sort((p1, p2) => (p1.publishedOn < p2.publishedOn ? 1 : -1));
 }
 
 export async function loadBlogPost(slug: string) {
 	const rawContent = await readFile(`/content/${slug}.mdx`);
-
 	const { data: frontmatter, content } = matter(rawContent);
-	console.log(frontmatter, content);
-
 	return { frontmatter, content };
 }
 
