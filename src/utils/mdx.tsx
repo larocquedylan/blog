@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import Link from "next/link";
 import Image from "next/image";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import React from "react";
 import CodeSnippet from "@/components/CodeSnippet";
 
