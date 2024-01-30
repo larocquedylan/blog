@@ -13,6 +13,15 @@ interface BlogPostProps {
 	params: BlogPostParams;
 }
 
+export async function generateMetadata({ params }: BlogPostProps) {
+	const { frontmatter } = await loadBlogPost(params.postSlug);
+
+	return {
+		title: `${frontmatter.title} | Dylan LaRocque`,
+		description: frontmatter.abstract,
+	};
+}
+
 export default async function BlogPost({
 	params,
 	...delegated
