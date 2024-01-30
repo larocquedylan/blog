@@ -163,3 +163,12 @@ table {
 .title {
 	text-wrap: balance;
 }
+
+h2,
+h3,
+h4 {
+	font-weight: 500 !important;
+	letter-spacing: -0.05em !important;
+	margin-top: 0;
+	margin-bottom: 0;
+}
