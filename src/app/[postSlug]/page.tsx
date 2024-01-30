@@ -1,9 +1,9 @@
-import React from "react";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import React, { useEffect, useState } from "react";
 import { loadBlogPost } from "@/utils/read-file";
-import COMPONENT_MAP from "@/utils/mdx-component-map";
+import components from "@/utils/mdx";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MDXRemote } from "next-mdx-remote/rsc";
 
 interface BlogPostParams {
 	postSlug: string;
@@ -24,20 +24,18 @@ export default async function BlogPost({
 			<Link className="text-blue-600 hover:underline" href="/blog">
 				← All Articles
 			</Link>
-			<h1 className="mt-8 text-5xl font-bold leading-tight">
+			<h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
 				{frontmatter.title}
 			</h1>
-			<div className="mt-8 flex items-center space-x-2"></div>
-			<div>
-				<div className="text-sm font-semibold">Dylan LaRocque</div>
-				<div className="text-sm text-gray-500">{frontmatter.publishedOn}</div>
+			<div className="mt-1 flex items-center space-x-2">
+				<p className="text-sm text-neutral-600 dark:text-neutral-400">
+					{frontmatter.publishedOn}
+				</p>
 			</div>
-			<Avatar>
-				<AvatarImage alt="dale" />
-				<AvatarFallback>JH</AvatarFallback>
-			</Avatar>
-			<div className="mt-10"></div>
-			<MDXRemote source={content} components={COMPONENT_MAP} />
+			<div className="mt-2"></div>
+			<article className="prose-sm prose-quoteless prose-neutral dark:prose-invert">
+				<MDXRemote source={content} components={components} />
+			</article>
 		</div>
 	);
 }
