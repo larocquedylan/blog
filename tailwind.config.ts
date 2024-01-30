@@ -1,18 +1,10 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
-	content: [
-		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-	],
+	content: ["./app/**/*.{ts,tsx}", "./content/**/*.mdx", "./public/**/*.svg"],
 	theme: {
 		extend: {
-			backgroundImage: {
-				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-				"gradient-conic":
-					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-			},
 			screens: {
 				xs: "360px", // custom xs breakpoint
 			},
@@ -29,8 +21,17 @@ const config: Config = {
 			maxWidth: {
 				custom: "900px", // Add this line
 			},
+			typography: {
+				quoteless: {
+					css: {
+						"blockquote p:first-of-type::before": { content: "none" },
+						"blockquote p:first-of-type::after": { content: "none" },
+					},
+				},
+			},
 		},
 	},
-	plugins: [require("@tailwindcss/typography")],
+	plugins: [typography],
 };
-export default config;
+
+export default Config;

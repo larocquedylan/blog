@@ -13,7 +13,7 @@ interface BlogPostProps {
 	params: BlogPostParams;
 }
 
-export async function generateMetadata({ params }: BlogPostProps) {
+async function generateMetadata({ params }: BlogPostProps) {
 	const { frontmatter } = await loadBlogPost(params.postSlug);
 
 	return {
@@ -29,10 +29,7 @@ export default async function BlogPost({
 	const { frontmatter, content } = await loadBlogPost(params.postSlug);
 
 	return (
-		<div className="max-w-4xl mx-auto p-8">
-			<Link className="text-blue-600 hover:underline" href="/blog">
-				← All Articles
-			</Link>
+		<section className="mx-auto py-12 px-8 max-w-[650px]">
 			<h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
 				{frontmatter.title}
 			</h1>
@@ -41,10 +38,13 @@ export default async function BlogPost({
 					{frontmatter.publishedOn}
 				</p>
 			</div>
-			<div className="mt-2"></div>
-			<article className="prose-sm prose-quoteless prose-neutral dark:prose-invert">
+			<div className="mt-6"></div>
+			<article className="prose prose-quoteless prose-neutral dark:prose-invert">
 				<MDXRemote source={content} components={components} />
 			</article>
-		</div>
+			<Link className="text-blue-600 hover:underline" href="/blog">
+				←
+			</Link>
+		</section>
 	);
 }

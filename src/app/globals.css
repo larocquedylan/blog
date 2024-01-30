@@ -2,171 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
-* {
-	margin: 0;
-}
-html {
-	scrollbar-gutter: stable;
-}
-body {
-	line-height: 1.5;
-	-webkit-font-smoothing: antialiased;
-}
-img,
-picture,
-video,
-canvas,
-svg {
-	display: block;
-	max-width: 100%;
-}
-input,
-button,
-textarea,
-select {
-	font: inherit;
-}
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	overflow-wrap: break-word;
+::selection {
+	background-color: #47a3f3;
+	color: #fefefe;
 }
 
-/* THEME VARIABLES */
-html {
-	--content-width: 55rem;
-	--outer-content-width: 80rem;
-	--viewport-padding: 16px;
-	--header-height: 5rem;
-	--trimmed-content-width: calc(
-		var(--content-width) - var(--viewport-padding) * 2
-	);
+:root {
+	--sh-class: #2d5e9d;
+	--sh-identifier: #354150;
+	--sh-sign: #8996a3;
+	--sh-string: #007f7a;
+	--sh-keyword: #e02518;
+	--sh-comment: #a19595;
+	--sh-jsxliterals: #6266d1;
 }
 
-@media (min-width: 35rem) {
-	html {
-		--viewport-padding: 24px;
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sh-class: #4c97f8;
+		--sh-identifier: white;
+		--sh-keyword: #f47067;
+		--sh-string: #0fa295;
 	}
 }
 
-/* GLOBAL STYLES */
-::selection {
-	/* background-color: var(
-    --color-selection-background
-  ) !important; */
-	background-color: #00072d;
-	color: var(--color-selection-text) !important;
-	background-image: none !important;
-	-webkit-text-fill-color: var(--color-selection-text) !important;
-	-moz-text-fill-color: var(--color-selection-text) !important;
-	background-image: none !important;
-	background-clip: revert !important;
-	-webkit-background-clip: revert !important;
-	text-shadow: none !important;
-}
-
 html {
-	color: var(--color-text);
-	font-family: var(--font-family), sans-serif;
-	letter-spacing: -0.03125em;
-	background: var(--color-backdrop-highlight);
+	min-width: 360px;
 }
 
-body {
-	min-height: 100vh;
-	min-height: 100svh;
-	display: flex;
-	flex-direction: column;
-	background: var(--color-backdrop);
-	border-bottom: 3px solid var(--color-decorative-600);
+.prose .anchor {
+	@apply absolute invisible no-underline;
+
+	margin-left: -1em;
+	padding-right: 0.5em;
+	width: 80%;
+	max-width: 700px;
+	cursor: pointer;
 }
 
-body::before {
-	content: "";
-	position: absolute;
-	z-index: 0;
-	top: 0;
-	left: 0;
-	right: 0;
-	background: linear-gradient(
-		to top,
-		var(--color-backdrop),
-		var(--color-backdrop-highlight)
-	);
+.anchor:hover {
+	@apply visible;
 }
 
-body > main {
-	flex: 1;
-	position: relative;
+.prose a {
+	@apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
 }
 
-em {
-	font-style: italic;
+.prose .anchor:after {
+	@apply text-neutral-300 dark:text-neutral-700;
+	content: "#";
 }
-code {
-	font-family: var(--font-family-mono);
+
+.prose *:hover > .anchor {
+	@apply visible;
 }
-h1 {
-	font-size: 1.75rem;
-	font-weight: 650;
+
+.prose pre {
+	@apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900;
 }
-h2 {
-	font-size: 1.5rem;
+
+.prose code {
+	@apply px-1 py-0.5 rounded-lg;
+}
+
+.prose pre code {
+	@apply p-0;
+	border: initial;
+	line-height: 1.5;
+}
+
+.prose code span {
+	@apply font-medium;
+}
+
+.prose img {
+	/* Don't apply styles to next/image */
+	@apply m-0;
+}
+
+.prose h2,
+h3,
+h4 {
+	/* needed to revert font-size so mdx works properly */
+	@apply font-medium tracking-tighter !important;
+	font-size: 1.4em;
 	margin-top: 2em;
-	margin-bottom: 0.5em;
-	font-weight: 600;
+	margin-bottom: 1em;
+	line-height: 1.3333333;
 }
-h3 {
-	font-size: 1.25rem;
-	margin-top: 2em;
-	margin-bottom: 0.5em;
-	font-weight: 500;
+
+.prose h3 {
+	font-size: 1.2em;
 }
-p {
-	font-size: 1.25rem;
+
+.prose strong {
+	/* @apply font-medium; */
+	/* change from font-medium to revert */
+	font-weight: revert;
+}
+
+.prose > * {
+	/* Apply margins to all children to ensure paragraph breaks */
+	margin-top: 1.5em;
 	margin-bottom: 1.5em;
 }
-p code {
-	display: inline-block;
-	font-size: 0.9em;
-	background: var(--color-inline-code-bg);
-	padding: 3px 6px;
-	margin: -0.25em -1px;
-	border-radius: 3px;
-}
-a {
-	color: currentColor;
-	text-decoration-color: var(--color-primary);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.125em;
+
+.prose blockquote {
 	font-weight: 500;
-	transition: all 200ms;
-}
-a:hover {
-	text-underline-offset: 0.175em;
-}
-button {
-	padding: 0;
+	font-style: italic;
+	color: var(--tw-prose-quotes);
+	border-left-width: 0.25rem;
+	border-left-color: var(--tw-prose-quote-borders);
+	quotes: "\201C" "\201D" "\2018" "\2019";
+	margin-top: 1.6em;
+	margin-bottom: 1.6em;
+	padding-left: 1em;
 }
 
-@media (min-width: 35rem) {
-	h1 {
-		font-size: 2.25rem;
-	}
+.prose ol,
+ul {
+	/* Revert list styles from prose and add padding to left for list */
+	list-style: revert-layer;
+	margin: 0;
+	padding-left: 25px;
+}
 
-	h2 {
-		font-size: 1.75rem;
-	}
-	h3 {
-		font-size: 1.5rem;
-	}
+pre::-webkit-scrollbar {
+	display: none;
+}
+
+pre {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+/* Remove Safari input shadow on mobile */
+input[type="text"],
+input[type="email"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.prose .tweet a {
+	text-decoration: inherit;
+	font-weight: 500;
+}
+
+table {
+	display: block;
+	max-width: fit-content;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.prose .callout > p {
+	margin: 0 !important;
+}
+
+.title {
+	text-wrap: balance;
 }
