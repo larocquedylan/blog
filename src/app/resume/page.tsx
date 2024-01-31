@@ -22,16 +22,22 @@ const Resume: React.FC = () => {
 				<SectionHeading heading={"Work Experience"} />
 				<div className="space-y-2 sm:space-y-4 not-prose">
 					<ResumeCard
-						title="Software Engineering Intern | Microsoft"
+						title="Software Engineer | Microsoft"
 						date="2022 - 23"
 						where="Vancouver, BC"
-						description="Feature development within the Windows Photos Premium team focused on the early stage prototype of the Photos CollabGallery, a major project to launch in 2024, demonstrating skills in scalable and user focused development.\nResearch into image format standards, understanding the nuances of how cameras process and store information. This knowledge was pivotal in optimizing data handling and transfer within the browser for maximum efficiency."
+						description="Intern at Microsoft on the Windows Photos Premium team focused on the early stage prototype of a major project to launch in 2024, demonstrating skills in scalable, product focussed, and agile development.\nResearch into image format standards, understanding how photos store EXIF data. This knowledge was pivotal in optimizing transfer and parsing within the browser for maximum efficiency."
+					/>
+					<ResumeCard
+						title="OFA 3 | Impact Safety Solutions"
+						date="2021 - 22"
+						where="Edmonton, AB"
+						description="Conducted safety meetings and provided onsite medical support on remote work sites (provide CPR, patient assessments, critical airway interventions, circulator interventions, and small wound management). \nThis was a detour but incredibly interesting. I learned how to save a life."
 					/>
 					<ResumeCard
 						title="Marketing Analyst | OneFeather"
 						date="2021"
 						where="Remote"
-						description="Built dashboards and data visualizations"
+						description="Built out tag management and Google Analytics dashboard to monitor the companies marketing funnel before the roll out of a new banking solution.\n Interfaced with Indigenous First Nations conducting elections through the our services, communicating insights through exploratory statistics and strategized with Nations on ways to increase voter turnout."
 					/>
 					<ResumeCard
 						title="Service Designer | BC Public Service"
@@ -46,16 +52,22 @@ const Resume: React.FC = () => {
 						description="Performed comprehensive market research, profiling customers, mapping user journeys, and conducting competitive analysis to identify opportunities. Lead the development of the business plan and go-to-market strategy incorporating financial projections, revenue model, and budget forecast based on literature review, market sizing, and pricing strategies."
 					/>
 					<ResumeCard
-						title="Teaching Assistant | UBC, Darren Dahl"
-						date="2018 - 20 "
-						where="Vancouver, BC"
-						description="Assisted in qualitative research and data collection under Dr. Katherine White and Dr. Darren Dahl in the Marketing and Behaviour Science faculty at Sauder. Conducted focus groups, collected surveys, and administered experiments. Also provided note-taking support for Dr. Dahls MBA course on Creativity (BA 562)."
+						title="Finance Analyst Intern | RBC"
+						date="2018"
+						where="Toronto, ON"
+						description="Performed due diligence and support on the build out of RBC's Investor and Treasury Services cost allocation model.\nProvided ad-hoc analysis for multiple business advisors on the Performance Management Team."
 					/>
 					<ResumeCard
-						title="Research Assistant | UBC, Darren Dahl"
-						date="2016 - 20"
+						title="Teaching Assistant | UBC"
+						date="2018 - 20 "
 						where="Vancouver, BC"
-						description="Conducted qualitative market research using a variety of methods, including focus groups, surveys, interviews, and experiments for Dr Darren Dahl of the Marketing and Behavioural Science division at Robert H. Lee Graduate School."
+						description="Provided administrative support and cataloging of Dr. Dahl's MBA course, Creativity (BA 562)."
+					/>
+					<ResumeCard
+						title="Research Assistant | UBC"
+						date="2017 - 20"
+						where="Vancouver, BC"
+						description="Conducted qualitative market research using a variety of methods, including focus groups, surveys, interviews, and experiments for Dr. Darren Dahl of the Marketing and Behavioural Science division at Robert H. Lee Graduate School."
 					/>
 					<ResumeCard
 						title="Aboriginal Student Ambassador | UBC"
@@ -72,21 +84,21 @@ const Resume: React.FC = () => {
 						date="2023"
 						title="Web Exif Viewer"
 						techStack="TypeScript, React, Vite, Vitest"
-						description="Developed a web application that allows users to upload images in various formats (PNG, JPG, AIFF, HEIC, WebP, RAW) and parse EXIF data efficiently in the browser. The project served as a critical experiment in optimizing image data processing, exploring the limits of browser capabilities in handling and processing complex image data."
+						description="Web app that parses EXIF data efficiently in the browser. Research in optimizing image data processing, exploring the limits of browser capabilities in handling and processing complex image data."
 					/>
 					<ResumeCard
 						date="2023"
 						title="River City Leadership Forum"
 						techStack="Next.js, SSR"
 						link="https://rclf.vercel.app"
-						description="Custom Next.Js marketing build for River City Leaders Forum in Edmonton."
+						description="Free-lance marking landing page for a forum."
 					/>
 					<ResumeCard
 						date="2023"
 						title="AcroBuzz"
 						techStack="Next.js, Apollo, TypeGraphQL, Prisma, PostgreSQL, Redis, Docker, Jest"
 						link="https://acrobuzz.larocque.xyz/"
-						description="Built and deployed full stack web application using Vercel for front end hosting, a Digital Ocean VPS for backend infrastructure, Dokku for application management, and Postgres and Redis running in Docker containers."
+						description="Built and deployed full stack web application using Vercel for front end hosting, a Digital Ocean VPS for backend infrastructure, Dokku for application management, and Postgres and Redis running in Docker containers. \nAImplemented user authentication through cookies in session storage, which in turn, authorizes users to create and edit posts, as well as upvote or downvote others' contributions."
 					/>
 					<ResumeCard
 						date="2023"
@@ -105,34 +117,34 @@ const Resume: React.FC = () => {
 					<SectionHeading heading={"Education"} />
 					<div className="space-y-2 sm:space-y-4">
 						<ResumeCard
-							date="2016 - 2020"
-							title="University of British Columbia"
-							where="Vancouver, BC"
-							description="Bachelor of Commerce in Marketing with Honours + Minor in Mathematics."
+							date="2024"
+							title="Joy of React"
+							techStack="Remote"
+							description="Modern React practices with hooks, component architecture, and state management. The course also goes into server side rendering with Next.js and layout animations with Framer Motion."
 						/>
 						<ResumeCard
-							date="2022 - 2023"
-							title="BrainStation"
-							where="Remote"
-							description="Software Engineering Bootcamp."
+							date="2023"
+							title="Algorithms and Data Structures"
+							techStack="Remote"
+							description="Fundamental computer science topics, including Big O notation, recursion, searching/sorting algorithms, and data structures like linked lists, trees, and graphs."
 						/>
 						<ResumeCard
 							date="2023"
 							title="EpicReact.Dev"
 							techStack="Remote"
-							description="Advanced, comprehensive training program for React developers, emphasizing practical, project-based learning with in-depth coverage of React fundamentals, hooks, testing, and performance optimization from the creator of React Testing Library, Kent C. Dodds."
+							description="In-depth coverage of React fundamentals, advanced hooks and component patterns, performance optimization, testing, and React Suspense from the creator of React Testing Library, Kent C. Dodds."
 						/>
 						<ResumeCard
-							date="2023"
-							title="JavaScript Algorithms and Data Structures Masterclass"
-							techStack="Remote"
-							description="Comprehensive course that teaches fundamental computer science topics, including Big O notation, recursion, sorting algorithms, and data structures like linked lists, trees, and graphs."
+							date="2022 - 23"
+							title="BrainStation"
+							where="Remote"
+							description="Software Engineering Bootcamp introducing HTML, CSS, JavaScript, React, Node, and MySQL."
 						/>
 						<ResumeCard
-							date="2024"
-							title="Joy of React"
-							techStack="Remote"
-							description="An interactive learning platform focused on modern React practices, offering hands-on experience with React hooks, component architecture, and state management."
+							date="2016 - 20"
+							title="University of British Columbia"
+							where="Vancouver, BC"
+							description="Bachelor of Commerce in Marketing with Honours + Minor in Mathematics."
 						/>
 					</div>
 				</div>

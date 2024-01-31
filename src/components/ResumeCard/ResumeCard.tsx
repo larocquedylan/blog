@@ -61,8 +61,8 @@ const ResumeCard: React.FC<props> = ({
 				</CollapsibleTrigger>
 				<CollapsibleContent>
 					<div className="flex">
-						<div className="w-1/4 mr-5 sm:mr-0">
-							<p className="sm:mr-10"></p>
+						<div className="w-1/4 ">
+							<p className=" mr-5 sm:mr-0"></p>
 						</div>
 						<div className="w-3/4 mt-[-5px]">
 							{/* {link ? (
@@ -72,7 +72,7 @@ const ResumeCard: React.FC<props> = ({
 									rel="noopener noreferrer"
 									className="text-sm sm:text-md font-extralight sm:font-light text-custom5"
 								>
-									{title}
+									
 								</a>
 							) : (
 								<h4 className="text-sm sm:text-md font-extralight sm:font-light text-custom5">
