@@ -18,9 +18,9 @@ const Resume: React.FC = () => {
 					than I consume.
 				</p>
 			</div>
-			<div className="mt-10 not-prose">
+			<div className="mt-10 ">
 				<SectionHeading heading={"Work Experience"} />
-				<div className="space-y-2 sm:space-y-4 not-prose">
+				<div className="space-y-2 sm:space-y-4 ">
 					<ResumeCard
 						title="Software Engineer | Microsoft"
 						date="2022 - 23"
@@ -52,10 +52,10 @@ const Resume: React.FC = () => {
 						description="Performed comprehensive market research, profiling customers, mapping user journeys, and conducting competitive analysis to identify opportunities. Lead the development of the business plan and go-to-market strategy incorporating financial projections, revenue model, and budget forecast based on literature review, market sizing, and pricing strategies."
 					/>
 					<ResumeCard
-						title="Finance Analyst Intern | RBC"
+						title="Finance Analyst | RBC"
 						date="2018"
 						where="Toronto, ON"
-						description="Performed due diligence and support on the build out of RBC's Investor and Treasury Services cost allocation model.\nProvided ad-hoc analysis for multiple business advisors on the Performance Management Team."
+						description=" Intern at RBC. Due diligence on the build out of RBC's Investor and Treasury Services cost allocation model.\nProvided ad-hoc analysis for multiple business advisors on the Performance Management Team."
 					/>
 					<ResumeCard
 						title="Teaching Assistant | UBC"
@@ -83,6 +83,7 @@ const Resume: React.FC = () => {
 					<ResumeCard
 						date="2023"
 						title="Web Exif Viewer"
+						link="https://web-exif-parsing.vercel.app/"
 						techStack="TypeScript, React, Vite, Vitest"
 						description="Web app that parses EXIF data efficiently in the browser. Research in optimizing image data processing, exploring the limits of browser capabilities in handling and processing complex image data."
 					/>
