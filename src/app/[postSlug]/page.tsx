@@ -29,7 +29,7 @@ export default async function BlogPost({
 	const { frontmatter, content } = await loadBlogPost(params.postSlug);
 
 	return (
-		<section className="mx-auto py-12 px-8 max-w-[650px]">
+		<section className="mx-auto py-12 px-8 max-w-[650px] pt-28">
 			<h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
 				{frontmatter.title}
 			</h1>
