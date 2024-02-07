@@ -172,3 +172,15 @@ h4 {
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.full-viewport {
+	height: 100vh; /* Full viewport height */
+	width: 100vw; /* Full viewport width */
+}
+
+/* Position your navbar absolutely */
+.navbar {
+	position: absolute;
+	top: 0;
+	z-index: 10; /* Higher than the canvas */
+}
