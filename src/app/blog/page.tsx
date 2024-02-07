@@ -12,7 +12,7 @@ export default async function BlogPage() {
 	const blogPosts = await getBlogPostList();
 
 	return (
-		<section className="flex flex-col mx-auto">
+		<section className="flex flex-col mx-auto pt-28">
 			<div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 mx-20">
 				{blogPosts.map(
 					({ slug, title, abstract, publishedOn }: blogPostArray) => (

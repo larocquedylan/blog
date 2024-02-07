@@ -28,8 +28,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
 					enableSystem
 					disableTransitionOnChange
 				>
-					<NavBar />
-					{children}
+					<div className="relative full-viewport">
+						{" "}
+						{/* This div wraps the navbar and canvas */}
+						<NavBar />
+						{children}
+					</div>
 				</ThemeProvider>
 			</body>
 		</html>
