@@ -4,7 +4,7 @@ import ResumeCard from "@/components/ResumeCard";
 
 const Resume: React.FC = () => {
 	return (
-		<div className="mx-auto max-w-3xl p-4 sm:p-10 pt-28">
+		<div className=" flex flex-col mx-auto max-w-3xl p-10 pt-28">
 			<div className="flex flex-col items-center space-y-6">
 				<ResumeHero />
 			</div>

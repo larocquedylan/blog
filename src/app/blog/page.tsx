@@ -13,7 +13,7 @@ export default async function BlogPage() {
 
 	return (
 		<section className="flex flex-col mx-auto pt-28">
-			<div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 mx-20">
+			<div className="grid grid-cols-1 gap-4 p-4 m-auto w-[330px]">
 				{blogPosts.map(
 					({ slug, title, abstract, publishedOn }: blogPostArray) => (
 						<BlogSummaryCard

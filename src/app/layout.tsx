@@ -20,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 		<html lang="en" suppressHydrationWarning>
 			<head />
 			<body
-				className={`antialiased min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 ${inter.className}`}
+				className={`antialiased min-h-screen dark:bg-[#1D1C2C] text-slate-900 dark:text-slate-50 ${inter.className}`}
 			>
 				<ThemeProvider
 					attribute="class"
