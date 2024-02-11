@@ -12,13 +12,13 @@ function Home() {
 		setIsMuted(!isMuted);
 	};
 	const { RiveComponent } = useRive({
-		src: "/assets/rive.riv",
+		src: "/assets/landing-page.riv",
 		stateMachines: "State Machine 1",
 		layout: new Layout({
 			fit: Fit.Cover,
 			alignment: Alignment.Center,
 		}),
-		artboard: "1",
+		artboard: "night",
 		autoplay: true,
 		onLoadError: () => console.log("Error Loading Rive"),
 		onLoad: () => console.log("Loaded Rive Successfully"),
