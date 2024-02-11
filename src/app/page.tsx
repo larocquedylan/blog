@@ -1,17 +1,38 @@
 "use client";
-import NavBar from "@/components/NavBar";
+import { useState, useRef, useEffect } from "react";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
-import { useState } from "react";
 import { SpeakerOffIcon, SpeakerLoudIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 
 function Home() {
-	const [isMuted, setIsMuted] = useState(false);
+	const [isMuted, setIsMuted] = useState(true);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	const toggleMute = () => {
 		setIsMuted(!isMuted);
+		// Assuming direct interaction here satisfies browser autoplay policies
 	};
-	const { RiveComponent } = useRive({
+
+	useEffect(() => {
+		// Apply mute state immediately to the audio element
+		if (audioRef.current) {
+			audioRef.current.muted = isMuted;
+		}
+
+		// Attempt to play the audio when the component mounts and whenever isMuted changes
+		const playAudio = () => {
+			if (audioRef.current && !isMuted) {
+				audioRef.current
+					.play()
+					.catch((error) => console.error("Error playing the audio:", error));
+			}
+		};
+
+		playAudio();
+	}, [isMuted]);
+
+	// Call useRive at the top level of your component
+	const { RiveComponent, rive } = useRive({
 		src: "/assets/landing-page.riv",
 		stateMachines: "State Machine 1",
 		layout: new Layout({
@@ -20,13 +41,13 @@ function Home() {
 		}),
 		artboard: "night",
 		autoplay: true,
-		onLoadError: () => console.log("Error Loading Rive"),
 		onLoad: () => console.log("Loaded Rive Successfully"),
+		onLoadError: () => console.log("Error Loading Rive"),
 	});
 
 	return (
 		<section className="flex flex-col mx-auto">
-			<audio autoPlay loop muted={isMuted} className="hidden">
+			<audio ref={audioRef} autoPlay loop muted={isMuted} className="hidden">
 				<source src="/home-song.mp3" type="audio/mp3" />
 				Your browser does not support the audio element.
 			</audio>
@@ -36,7 +57,7 @@ function Home() {
 				variant="home"
 				size="icon"
 				onClick={toggleMute}
-				className="z-50 absolute bottom-5 right-5 bg-[#1D1C2C]"
+				className="z-50 fixed bottom-5 right-5 bg-[#1D1C2C]"
 			>
 				{isMuted ? <SpeakerOffIcon /> : <SpeakerLoudIcon />}
 			</Button>
