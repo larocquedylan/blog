@@ -20,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 		<html lang="en" suppressHydrationWarning>
 			<head />
 			<body
-				className={`antialiased min-h-screen dark:bg-[#1D1C2C] text-slate-900 dark:text-slate-50 ${inter.className}`}
+				className={`antialiased min-h-screen dark:bg-[#0B1A28] text-slate-900 dark:text-slate-50 ${inter.className}`}
 			>
 				<ThemeProvider
 					attribute="class"
@@ -30,7 +30,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
 				>
 					<div className="relative full-viewport">
 						{" "}
-						{/* This div wraps the navbar and canvas */}
 						<NavBar />
 						{children}
 					</div>

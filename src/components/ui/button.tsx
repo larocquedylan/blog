@@ -20,9 +20,9 @@ const buttonVariants = cva(
 				ghost:
 					"hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-950 dark:hover:text-blue-50",
 				link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
-				home: "dark:bg-[#1D1C2C] text-white hover:bg-gray-400 dark:hover:bg-gray-500",
+				home: "dark:bg-[#0B1A28] text-white hover:bg-gray-400 dark:hover:bg-gray-500",
 				navbar:
-					"text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-500 dark:bg-[#1D1C2C] dark:text-white dark:hover:bg-gray-500",
+					"text-gray-700 hover:text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-500 dark:bg-[#0B1A28] dark:text-white dark:hover:bg-gray-500",
 			},
 			size: {
 				default: "h-9 px-4 py-2",
