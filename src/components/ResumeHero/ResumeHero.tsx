@@ -7,6 +7,8 @@ const ResumeHero: React.FC = () => {
 		<div className="flex items-center space-x-6">
 			<Image
 				className="rounded-2xl w-24 h-24 mb-4 md:mb-0"
+				width={96}
+				height={96}
 				src={me}
 				alt="Dylan LaRocque"
 			/>
