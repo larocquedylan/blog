@@ -10,7 +10,8 @@ const ResumeHero: React.FC = () => {
 				width={96}
 				height={96}
 				src={me}
-				alt="Dylan LaRocque"
+				alt="Blue square with characters making the outline of an avatar"
+				placeholder="blur"
 			/>
 			<div className="flex flex-col justify-center space-y-1">
 				<h1 className="text-sm sm:text-lg font-medium text-custom5">
