@@ -4,18 +4,29 @@ import ResumeCard from "@/components/ResumeCard";
 
 const Resume: React.FC = () => {
 	return (
-		<div className=" flex flex-col mx-auto max-w-3xl p-10 pt-28">
+		<div className=" flex flex-col mx-auto max-w-3xl p-10 py-20">
 			<div className="flex flex-col items-center space-y-6">
 				<ResumeHero />
 			</div>
 			<div className="mt-10 not-prose">
 				<SectionHeading heading={"About"} />
 				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
-					{" "}
-					Yo, I&apos;m Dylan, a full-stack TypeScript pro, with some marketing
-					know, I got a degree from the UBC, I write rhymes and make beats, hodl
-					BTC, guiding ethics are to feed more than I eat and to create more
-					than I consume.
+					Former software engineering intern at Microsoft, where I worked on the
+					Windows Photo Team. Specifically, I worked on the early stages of the
+					prototype of a new product offering to be released in 2024. I wrote in
+					TypeScript using React, Redux, Storybook, and Vitest to craft scalable
+					and performant web applications.
+				</p>
+				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
+					My experience as a co-founder, where I held a product role, my time in
+					public service as a designer, and my work as an engineer at Microsoft
+					have equipped me with a unique blend of technical expertise, strategic
+					insight and collaboration skills that are valuable to a team.{" "}
+				</p>
+				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
+					My mission is to create more than I consume. I believe that with
+					technology, all problems are soluble unless banned by the laws of
+					physics.
 				</p>
 			</div>
 			<div className="mt-10 ">
