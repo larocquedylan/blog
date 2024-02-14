@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "dylan LaRocque",
 	description: "a place for strong beliefs, loosely held.",
+	icons: {
+		icon: ["./Favicon/favicon.ico"],
+	},
 };
 
 interface RootLayoutProps {
