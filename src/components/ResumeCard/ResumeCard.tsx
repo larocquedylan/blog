@@ -6,6 +6,7 @@ import {
 
 import React from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type props = {
 	date: string;
@@ -84,11 +85,21 @@ const ResumeCard: React.FC<props> = ({
 									{where}
 								</p>
 							) : techStack ? (
-								<p className="text-sm sm:text-md font-extralight sm:font-light mb-2 text-custom4">
+								<p className="text-sm sm:text-md font-extralight sm:font-light mb-2 ">
 									{techStack}
 								</p>
 							) : null}
 							{paragraphs}
+							{link ? (
+								<Link
+									href={link}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-sm sm:text-md font-extralight sm:font-light mb-2 text-blue-900 dark:text-blue-200"
+								>
+									{link}
+								</Link>
+							) : null}
 						</div>
 					</div>
 				</CollapsibleContent>
