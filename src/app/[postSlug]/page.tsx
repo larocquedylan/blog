@@ -42,8 +42,8 @@ export default async function BlogPost({
 			<article className="prose prose-quoteless prose-neutral dark:prose-invert">
 				<MDXRemote source={content} components={components} />
 			</article>
-			<Link className="text-blue-600 hover:underline" href="/blog">
-				←
+			<Link className="text-blue-600" href="/blog">
+				← /Blog
 			</Link>
 		</section>
 	);
