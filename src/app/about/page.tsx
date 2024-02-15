@@ -32,8 +32,8 @@ const About: React.FC = () => {
 				</p>
 				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
 					{" "}
-					I am now seeking new opportunities. If you would like to check out a
-					more formal resume, go
+					If you would like to check out a more exhaustive list of experience
+					(resume), go
 					<Link href={"/resume"} className="font-bold">
 						{" "}
 						here
