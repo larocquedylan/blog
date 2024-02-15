@@ -109,12 +109,13 @@ const Resume: React.FC = () => {
 						date="2023"
 						title="AcroBuzz"
 						techStack="Next.js, Apollo, TypeGraphQL, Prisma, PostgreSQL, Redis, Docker, Jest"
-						link="https://acrobuzz.larocque.xyz/"
+						link="https://github.com/larocquedylan/AcroBuzz-Client"
 						description="Built and deployed full stack web application using Vercel for front end hosting, a Digital Ocean VPS for backend infrastructure, Dokku for application management, and Postgres and Redis running in Docker containers. \nAImplemented user authentication through cookies in session storage, which in turn, authorizes users to create and edit posts, as well as upvote or downvote others' contributions."
 					/>
 					<ResumeCard
 						date="2023"
 						title="Beats for Bits"
+						link="https://github.com/larocquedylan/beats-for-bits-api"
 						techStack="React, Tailwind, Express, Docker, LnBits, MochaJS"
 						description="Personal website to sell music with Bitcoin over the Lightning Network."
 					/>
