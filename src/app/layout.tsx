@@ -4,6 +4,7 @@ import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Contact from "@/components/Contact";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 						<Contact />
 					</div>
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
