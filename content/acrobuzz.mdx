@@ -60,7 +60,7 @@ To be Authenticated a user must register.
 
 ### Register Component
 
-The `Register` and `Login` components are similar so I will only detail the `Register`
+The `Register` and `Login` components are similar so I will only detail the `Register`.
 
 ```typescript
 import { Formik, Form } from "formik";
@@ -69,8 +69,6 @@ import { Formik, Form } from "formik";
 The component is structured around a form that captures user input for the registration process. It uses `Formik` for form management to handle user inputs and feedback.
 
 ```typescript
-// imports
-
 const Register: React.FC<registerProps> = ({}: registerProps) => {
 	const [register] = useRegisterMutation();
 	const router = useRouter();
@@ -137,9 +135,9 @@ export function useRegisterMutation(
 
 This is created with GraphQL mutation schema below
 
-#### GraphQL Mutation
+#### GraphQL Mutation
 
-`src/graphql/mutations/register`, which gets the `RegularUser` fragment from `src/graphql/fragments/RegularUser`
+`src/graphql/mutations/register`, gets the `RegularUser` fragment from `src/graphql/fragments/RegularUser`
 
 ```typescript
 mutation Register($username: String!, $password: String!) {
@@ -162,7 +160,7 @@ fragment RegularUser on UserType {
 
 ```
 
-The user will then be brought to the index page, which is a list of the posts fetched from the PostgreSQL database.
+With this, the user is registered. Once complete, the user is registered and brought to the index page which is a list of the posts fetched from the PostgreSQL database.
 
 ### Index Component
 
@@ -344,36 +342,41 @@ The server codebase follows a modular structure:
 
 As defined in `schema.prisma` , there are 3 main models: post, user, votes.
 
-#### Models and Relationships:
+#### Models and Relationships:
 
-1. User:
-   1. fields include:
-      1. id
-      2. createdAt
-      3. updatedAt
-      4. username
-      5. password
-   2. has a one-to-many relationship with post (i.e. a user can have multiple posts) and votes (a user can vote on multiple things)
-2. Post:
-   1. fields include:
-      1. id
-      2. createdAt
-      3. updatedAt
-      4. title
-      5. text
-      6. authorId
-      7. totalPoints
-   2. has a **one-to-many** relationship with votes (a post can have many votes)
-   3. has a **many-to-one** relationship with users (a post can be authored by only one user)
-3. Votes:
-   1. fields include:
-      1. id
-      2. voteValue
-      3. postId
-      4. userId
-   2. has a many-to-one relationship with both post and user (each vote is associated with one post and one user)
+**User:**
 
-#### Notes on Schema:
+1.  fields include:
+    1. id
+    2. createdAt
+    3. updatedAt
+    4. username
+    5. password
+2.  has a one-to-many relationship with post (i.e. a user can have multiple posts) and votes (a user can vote on multiple things)
+
+**Post**
+
+1.  fields include:
+    1. id
+    2. createdAt
+    3. updatedAt
+    4. title
+    5. text
+    6. authorId
+    7. totalPoints
+2.  has a **one-to-many** relationship with votes (a post can have many votes)
+3.  has a **many-to-one** relationship with users (a post can be authored by only one user)
+
+**Vote**
+
+1.  fields include:
+    1. id
+    2. voteValue
+    3. postId
+    4. userId
+2.  has a many-to-one relationship with both post and user (each vote is associated with one post and one user)
+
+#### Notes on Schema:
 
 - Password Storage: The schema includes a password field in the user model without specifying encryption or hashing
 - Lack of Soft Deletes: The models do no include a mechanism for soft deletes (which means, when something is deleted by a user, it is removed from the database, so deletes are final).
