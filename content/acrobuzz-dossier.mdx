@@ -1,0 +1,571 @@
+---
+title: "AcroBuzz README"
+abstract: Some technical documentation for a project
+publishedOn: "2024-03-07"
+---
+
+_[https://github.com/larocquedylan/AcroBuzz-Client](https://github.com/larocquedylan/AcroBuzz-Client)_
+_[https://github.com/larocquedylan/AcroBuzz-Server](https://github.com/larocquedylan/AcroBuzz-Server)_
+
+AcroBuzz is a web application focussed on creating, displaying, and managing text posts.
+
+It leverages Next.JS for server-side rendering and next's file based routing. Typescript for type safety, ChakraUI for UI components, and GraphQL for data fetching and manipulation.
+
+Key functionalities include: a dynamic post creation form with real-time validation, a paginated display of posts with options for upvoting, and user specific actions like editing and deleting posts based on authentication status.
+
+The application handles client-server interactions with Apollo Client's caching mechanism, ensuring data consistency.
+
+The backend is built with Node.JS, utilizing Apollo Server for GraphQL API management, and Prisma as the ORM for PostgreSQL database operations, Express-Session for session management, and CORs for security.
+
+The front-end _was_ hosted with Vercel, and the backend and database was deployed to Digital Ocean Dokku VPS with Docker.
+
+## Architecture and Technologies
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Chakra UI](https://chakra-ui.com/)
+- [GraphQL](https://graphql.org/)
+- [Apollo Client](https://www.apollographql.com/docs/react/)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [Prisma](https://www.prisma.io/)
+- [TypeGraphQL](https://typegraphql.com/)
+- [express-session](https://www.npmjs.com/package/express-session)
+- [Docker](https://www.docker.com/)
+- [Redis](https://redis.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Digital Ocean Dokku Droplet](https://www.digitalocean.com/products/droplets/)
+- [Vercel](https://vercel.com/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Git](https://git-scm.com/)
+
+## Frontend System Key Files
+
+The codebase follows a modular and organized structure, adhering to best practices for maintainability and scalability.
+
+- **src/pages**: Contains Next.js page components, including the homepage (`index.tsx`), login page (`login.tsx`), and dynamic routes like `post/[id].tsx`.
+- **src/components**: Houses reusable UI components, such as `NavBar.tsx` for navigation and `Wrapper.tsx` for consistent page layouts.
+- **src/theme.tsx**: Defines the custom theme for Chakra UI, allowing for consistent styling across the application.
+- **src/utils**: Contains utility functions, such as `isServerSide.ts` for server-side checks.
+- **src/codegen/graphql.ts**: Automatically generated file containing types and hooks for GraphQL operations, improving development efficiency and type safety.
+- **codegen.ts**: Configuration file for the GraphQL Code Generator, responsible for generating the `graphql.ts` file.
+
+### Authentication and Authorization
+
+User authentication and authorization are implemented, ensuring secure access to protected routes and features. The login functionality is handled through the `login.tsx` component, while protected routes like `create-post.tsx` require users to be authenticated before granting access.
+
+To be Authenticated a user must register.
+
+### Register Component
+
+The `Register` and `Login` components are similar so I will only detail the `Register`
+
+```typescript
+import { Formik, Form } from "formik";
+```
+
+The component is structured around a form that captures user input for the registration process. It uses `Formik` for form management to handle user inputs and feedback.
+
+```typescript
+// imports
+
+const Register: React.FC<registerProps> = ({}: registerProps) => {
+	const [register] = useRegisterMutation();
+	const router = useRouter();
+
+return ()
+<Formik
+	initialValues={{ username: '', password: '' }}
+	onSubmit={async (values, { setErrors }) => {
+	  const response = await register({ variables: values });
+	  if (response.data?.register.errors) {
+		setErrors(toErrorMap(response.data.register.errors));
+	  } else if (response.data?.register.user) {
+		// success
+		router.push('/');
+	  }
+	}}
+></Formik>
+)}
+```
+
+If the form is not successful, errors are handled with the `src/utils/toErrorMap.ts`
+
+#### Error handling
+
+```typescript
+import { FieldError } from "../codegen/graphql";
+
+export const toErrorMap = (errors: FieldError[]) => {
+	const errorMap: Record<string, string> = {};
+	errors.forEach(({ field, message }) => {
+		errorMap[field] = message;
+	});
+
+	return errorMap;
+};
+```
+
+The `toErrorMap` function is a utility designed to transform an array of field errors into an object where each key corresponds to a field name and each value is the error message associated with that field. This simplifies the process of displaying error messages next to the appropriate form fields based on server-side validation feedback. This integrates well with Formik. Formik allows you to set field-level errors using an object where keys are field names and values are error messages. After converting the server-side validation errors into the appropriate format with `toErrorMap`, you can pass the result directly to Formik's setErrors function
+
+**But if successful**
+
+A valid input with trigger the `useRegisterMutation` hook
+
+```typescript
+const [register] = useRegisterMutation();
+```
+
+which is generated with `@graphql-codegen`
+
+```typescript
+export function useRegisterMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		RegisterMutation,
+		RegisterMutationVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
+		RegisterDocument,
+		options,
+	);
+}
+```
+
+This is created with GraphQL mutation schema below
+
+#### GraphQL Mutation
+
+`src/graphql/mutations/register`, which gets the `RegularUser` fragment from `src/graphql/fragments/RegularUser`
+
+```typescript
+mutation Register($username: String!, $password: String!) {
+  register(options: { username: $username, password: $password }) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}
+
+fragment RegularUser on UserType {
+  id
+  username
+  createdAt
+}
+
+```
+
+The user will then be brought to the index page, which is a list of the posts fetched from the PostgreSQL database.
+
+### Index Component
+
+#### Fetching Posts
+
+The component uses the `useGetPaginatedPostsQuery` hook to fetch a paginated list of posts from the server. It specifies initial query variables such as `limit` and `cursor` for pagination control.
+
+```typescript
+const { data, loading, fetchMore, variables } = useGetPaginatedPostsQuery({
+	variables: {
+		limit: 10,
+		cursor: null,
+	},
+	notifyOnNetworkStatusChange: true,
+});
+```
+
+And, It handles loading states by displaying a loading spinner or message when the data is being fetched.
+
+```typescript
+// component logic
+{!data && loading ? ( <p>loading.. </p> ) : (
+// component logic
+{isLoadingMore ? <Spinner /> : 'Load more'}
+// component logic
+```
+
+#### Paginated Posts
+
+The component supports pagination through a "Load more" button. This button triggers a `fetchMore` function from the `useGetPaginatedPostsQuery` hook with updated query variables, fetching the next set of posts.
+
+The pagination logic includes handling for loading states and dynamically updating the `cursor` based on the data received from the server.
+
+```typescript
+// component logic
+  {data && data.posts.nextCursor && (
+// component logic
+```
+
+#### Authentication check for Edit
+
+On the index, the app will query the backend to see which posts belong to the user that is currently logged in.
+
+```typescript
+const { data: meData } = useMeQuery();
+```
+
+If they are logged in, the app will render delete and edit functionality for the posts that belong to the user.
+
+```typescript
+{meData?.me?.id !== post.author.id ? null : (
+  <Box>
+	<NextLink
+	  href='/post/edit/[id]'
+	  as={`/post/edit/${post.id}`}
+>
+	  <IconButton
+		aria-label='edit post'
+		icon={<EditIcon />}
+	  />
+	</NextLink>
+	<IconButton
+	  aria-label='delete post'
+	  ml={4}
+	  icon={<DeleteIcon />}
+	  onClick={() => {
+		deletePost({
+		  variables: { deletePostId: post.id },
+		});
+	  }}
+	/>
+  </Box>
+)}
+```
+
+The delete functionality is implemented using the `useDeletePostMutation` hook. Upon clicking the delete button, the corresponding post is deleted from the server, and the list of posts is refetched to reflect this change.
+
+### Create Post Component
+
+The `src/pages/create-post.tsx` component allows **authenticated** users to create new posts. This component is built using Formik, Chakra UI, and GraphQL.
+
+#### Authentication Check
+
+At the beginning of the component, it invokes a utility function `userIsAuth()` from `src/utils/isAuth` to ensure that only authenticated users can access the post creation form.
+
+```typescript
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useMeQuery } from "../codegen/graphql";
+
+export const userIsAuth = () => {
+	const { data, loading } = useMeQuery();
+	const router = useRouter();
+
+	useEffect(() => {
+		if (!loading && !data?.me) {
+			router.replace(`/login?next=${router.pathname}`);
+		}
+	}, [data, loading, router]);
+};
+```
+
+#### Form Initialization
+
+Upon form submission, it attempts to create a new post by calling the `createPost` mutation with the form values as variables.
+
+```typescript
+const CreatePost: React.FC<{}> = ({}) => {
+  userIsAuth();
+  const [createPost, { error }] = useCreatePostMutation();
+  const router = useRouter();
+
+  return (
+	<Formik
+	  initialValues={{ title: '', text: '' }}
+	  onSubmit={async (values) => {
+		try {
+		  await createPost({
+			variables: values,
+			update: (cache) => {
+			  cache.evict({ fieldName: 'posts:{}' });
+			},
+		  });
+		  router.push('/');
+		} catch (error) {
+		  router.push('/login');
+		  alert(`error caught: ${error.message}`);
+		}
+	  }}
+
+	/// component logic
+)}
+```
+
+Updating the cache is crucial for ensuring that the local cache maintained by Apollo Client remains consistent with the server state after a mutation.
+
+If the post creation is successful, the user is redirected to the homepage using Next.js' `useRouter` hook. This redirection signifies the successful creation of the post.
+
+The `useCreatePostMutation` is uses codegen to create the hook, the `src/graphql/mutations` houses the schema used to generate it.
+
+```graphql
+mutation CreatePost($title: String!, $text: String!) {
+	createPost(title: $title, text: $text) {
+		id
+		title
+		text
+		createdAt
+		updatedAt
+		author {
+			id
+			username
+		}
+		votes {
+			id
+			voteValue
+		}
+	}
+}
+```
+
+#### Error Handling and User Feedback
+
+The component includes error handling within the `onSubmit` function. If an error occurs during the post creation process (e.g., due to network issues or validation errors from the server), it catches the error and redirects the user to the login page. This behaviour assumes that a common cause of failure could be authentication issues, prompting the user to log in again.
+
+Additionally, it displays an alert with the error message to provide immediate feedback to the user about the failure.
+
+---
+
+## Backend System Key Files
+
+The server codebase follows a modular structure:
+
+- **src/index.ts**: The entry point of the server application, responsible for setting up Apollo Server, Express.js middleware, and starting the server.
+- **src/resolvers**: Contains GraphQL resolvers, handling queries and mutations for various entities like users (`user.ts`) and posts (`post.ts`).
+- **src/types.ts**: Defines TypeScript types for the application context and other custom types used across the server.
+- **src/consts.ts**: Stores constant values, such as cookie names and production mode checks.
+
+### Database Schema
+
+As defined in `schema.prisma` , there are 3 main models: post, user, votes.
+
+#### Models and Relationships:
+
+1. User:
+   1. fields include:
+      1. id
+      2. createdAt
+      3. updatedAt
+      4. username
+      5. password
+   2. has a one-to-many relationship with post (i.e. a user can have multiple posts) and votes (a user can vote on multiple things)
+2. Post:
+   1. fields include:
+      1. id
+      2. createdAt
+      3. updatedAt
+      4. title
+      5. text
+      6. authorId
+      7. totalPoints
+   2. has a **one-to-many** relationship with votes (a post can have many votes)
+   3. has a **many-to-one** relationship with users (a post can be authored by only one user)
+3. Votes:
+   1. fields include:
+      1. id
+      2. voteValue
+      3. postId
+      4. userId
+   2. has a many-to-one relationship with both post and user (each vote is associated with one post and one user)
+
+#### Notes on Schema:
+
+- Password Storage: The schema includes a password field in the user model without specifying encryption or hashing
+- Lack of Soft Deletes: The models do no include a mechanism for soft deletes (which means, when something is deleted by a user, it is removed from the database, so deletes are final).
+
+### Authentication
+
+Authentication is determined through a middleware function named `isAuth` in the `server/src/middleware/isAuth.ts` file. This middleware is designed to work within a GraphQL server setup, specifically with type-graphql.
+
+```typescript
+import { myContext } from "src/types";
+import { MiddlewareFn } from "type-graphql";
+
+export const isAuth: MiddlewareFn<myContext> = ({ context }, next) => {
+	if (!context.req.session.userId) {
+		throw new Error("not authenticated");
+	}
+	return next();
+};
+
+// src/types
+import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express"; // access req and res in resolvers
+import { Session } from "express-session"; // access session in resolvers
+
+export type myContext = {
+	req: Request & { session: Session & { userId: number } };
+	res: Response;
+	prisma: PrismaClient;
+};
+```
+
+The `context` is an object that gets passed through the resolver chain and can be used to share information, like the current user's session data. This is where the core of the authentication check lies, if there is a `userId` in the session (`!context.req.session.userId`), a user is authenticated.
+
+If the `userId` is found, indicating that the user is authenticated, the middleware calls `next()`. This function call allows the request to proceed to the resolver.
+
+If the `userId` is not found in the session, execution of any subsequent resolvers that require the user to be authenticated throw an error.
+
+#### Notes on Authentication Implement
+
+- Session-Based Authentication: This method relies on session-based authentication, which is managed server-side.
+- Error Handling: The middleware throws a generic error for unauthenticated requests. In practice, this leaves something to be desired for handling these errors more gracefully for feedback to the client.
+
+### Resolvers
+
+Will only look at `src/resolvers/post` for example:
+
+The Post resolver class is annotated with `@Resolver()` decorator to indicate it contains methods that resolve various fields for the `PostType` GraphQL type. Through Prisma, these methods can perform CRUD operations on the `post` table in the database.
+
+#### Creating a a post
+
+To implement the creation of a post we define a GraphQL mutation.
+
+We first define a `@InputType()` class to specify the data needed to create a post. This class includes field for the post's title and text, which are simply strings.
+
+```typescript
+@InputType()
+class CreatrePostInput {
+	@Field(() => String)
+	title: string;
+
+	@Field(() => String)
+	text: string;
+}
+```
+
+This mutation takes `CreatePostInput` as an argument and returns the created `PostType` object. The mutation is decorated with `@Mutation(() => PostType)` to indicate it modifies data and returns a `PostType` object.
+
+`@UseMiddleware(isAuth)` checks if the user is authenticated.
+
+The function then takes `@Arg('title', () => String) title: string,`and `@Arg('text', () => String) title: string,`
+
+`@ctx() { prisma, req} : myContext` injects the context into the resolver, which provides a central store to access the data prisma client. The `userId` lives on the `req.session`. The function than takes this and adds it to the `data` object being sent to the database.
+
+```javascript
+@Mutation(() => PostType)
+@UseMiddleware(isAuth)
+async createPost(
+  @Arg('title', () => String) title: string,
+  @Arg('text', () => String) text: string,
+  @Ctx() { prisma, req }: myContext
+): Promise<PostModel> {
+  const authorId = req.session.userId;
+  return await prisma.post.create({
+    data: { title, authorId, text },
+    include: { author: true },
+  });
+}
+```
+
+#### Fetching Paginated Posts
+
+First an `@ObjectType()` named `PaginatedPosts` is defined that contains two fields
+
+- `posts`: which is an array of `PostType` objects, representing the fetched posts.
+- `nextCursor`: a nullable string that points to the next set of results.
+
+```typescript
+@ObjectType()
+export class PaginatedPosts {
+	@Field(() => [PostType])
+	posts: PostModel[];
+
+	@Field(() => String, { nullable: true })
+	nextCursor?: string | null;
+}
+```
+
+The `posts` query is an async function decorated with `@Query(() => PaginatedPosts`. It takes the `PaginationInput` as an argument which includes the `cursor` and `limit` values from the client
+
+```typescript
+@InputType()
+export class PaginationInput {
+	@Field(() => String, { nullable: true })
+	cursor?: string;
+
+	@Field(() => Int, { nullable: true, defaultValue: 10 })
+	@Min(1)
+	@Max(50)
+	limit?: number;
+}
+```
+
+It first determines the fetch parameters by getting the number of posts to fetch from the `limit` (in this case 50).
+
+If a cursor is provided it constructs a `cursorOptions` object to fetch the posts created before the date represented by the `cursor`.
+
+It uses Prisma's `findMany` method to fetch posts from the database according to the `cursorOptions`, ordering them by created date (oldest last). It fetches one more posts than the requested limit (take + 1) to determine if there are more posts beyond the current page.
+
+If the number of fetched `posts` exceeds the requested limit (`hasNextPage`), then there are more posts available, and the the last post is not included in the returned result.
+
+So it returns the fetched `posts` (excluding the extra one if there is a next page) and the `nextCursor`, which is the creation timestamp of the last post in the results. This `cursor` can be used in a subsequent query to fetch the next set of posts.
+
+```javascript
+@Query(() => PaginatedPosts)
+async posts(
+    @Arg('input', () => PaginationInput) { cursor, limit }: PaginationInput,
+    @Ctx() { prisma }: myContext
+): Promise<PaginatedPosts> {
+    const take = Math.min(50, limit || 10);
+    const skip = 0;
+    const cursorOptions = cursor
+      ? {
+          createdAt: {
+            lt: new Date(parseInt(cursor)),
+          },
+        }
+      : undefined;
+
+    const posts = await prisma.post.findMany({
+      where: cursorOptions,
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: { author: true },
+      take: take + 1,
+      skip,
+    });
+
+    const hasNextPage = posts.length > take;
+    const edges = hasNextPage ? posts.slice(0, -1) : posts;
+
+    return {
+      posts: edges,
+      nextCursor: hasNextPage
+        ? String(posts[posts.length - 1].createdAt.getTime())
+        : null,
+    };
+}
+```
+
+## Deploy.sh
+
+This is a shell script for deploying the server. It automates the process of building, pushing, tagging, and deploying the different versions of the backend. I used Docker for containerization, and Dokku for deployment of the remote server.
+
+1. Prompt for version: The script starts by prompting the user for the version number for the deployment. This version number is read and stored in the `VERSION` variable
+
+```shell
+echo What version is this?
+echo $VERSION
+```
+
+2. Build and Push docker image: it then proceeds to build a Docker image using the provided version number as a tag and push this image to Docker registry
+
+```shell
+docker build -t larocquedylan/acrobuzz:$VERSION
+docker push larocquedylan/acrobuzz:$VERSION
+```
+
+3. Deploy on Remote Server: After the docker image builds and is pushed to the registry, the script connects to the dokku VPS via SSH. Doing the following:
+   1. Pull the most recently pushed docker image
+   2. tag the docker image for deployment, name it API and deploy it
+
+```shell
+ssh root@some.ip.address "docker pull larocque/dylan/acrobuzz:$VERISON && docker tag larocquedylan/acrobuzz:$VERSION dokku/api:$VERSION && dokku deploy api $VERSION"
+```

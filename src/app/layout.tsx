@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Contact from "@/components/Contact";
 import { Analytics } from "@vercel/analytics/react";
+import "@code-hike/mdx/dist/index.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
