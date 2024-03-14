@@ -39,10 +39,10 @@ const Resume: React.FC = () => {
 						description="Intern at Microsoft on the Windows Photos Premium team focused on the early stage prototype of a major project to launch in 2024, demonstrating skills in scalable, product focussed, and agile development.\nResearch into image format standards, understanding how photos store EXIF data. This knowledge was pivotal in optimizing transfer and parsing within the browser for maximum efficiency."
 					/>
 					<ResumeCard
-						title="OFA 3 | Impact Safety Solutions"
-						date="2021 - 22"
+						title="Research Engineer | Impact Safety Solutions"
+						date="2021 - 2022"
 						where="Edmonton, AB"
-						description="Conducted safety meetings and provided onsite medical support on remote work sites (provide CPR, patient assessments, critical airway interventions, circulator interventions, and small wound management). \nThis was a detour but incredibly interesting. I learned how to save a life."
+						description="Research into Remote Confined Space Monitoring (RCSM) initiatives, ensuring 100% compliance with safety regulations and standards across 15 project sites.\nImplemented advanced gas detection and communication systems, reducing personnel exposure risks by 72% and enhancing real-time safety monitoring.\nConducted remote installations, upgrades, and maintenance sessions, minimizing on-site personnel requirements and downtime. \nDeployed a Network-Attached Storage (NAS) system on Linux, streamlining data management and improving accessibility by 35%."
 					/>
 					<ResumeCard
 						title="Marketing Analyst | OneFeather"
