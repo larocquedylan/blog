@@ -11,8 +11,8 @@ const About: React.FC = () => {
 				<SectionHeading heading={`Yo, I'm Dylan 👋`} />
 				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
 					{" "}
-					I am a full stack TypeScript pro, with some marketing know, I got a
-					degree from the UBC, I write
+					I&apos;ve got some marketing know, plus I&apos;m a full-stack
+					TypeScript Pro, My degree is from the UBC, I write
 					<Link
 						href="https://www.youtube.com/watch?v=YL7PygD3iJM"
 						className="font-bold"
@@ -20,15 +20,27 @@ const About: React.FC = () => {
 						{" "}
 						rhymes
 					</Link>
-					, make beats, hodl BTC, and my guiding ethic is to feed more than I
+					, make beats, hodl BTC, and the guiding ethic is to feed more than I
 					eat.
 				</p>
 				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
 					{" "}
-					I started developing web applications in 2021 and built a few
-					freelance websites. More formally, I began my professional journey at
-					Microsoft as a software engineer intern, primarily working on the
-					front end with TypeScript, React, Redux, and Storybook.
+					I&apos;ve dipped my toes in a few different worlds — tech, startups,
+					public service, and beyond. At UBC, I studied marketing and
+					mathematics while working as a Research Assistant, conducting
+					interviews and experiments. I co-founded a venture that didn&apos;t
+					quite workout but taught me a ton. I&apos;ve worked as a marketing
+					analyst with OneFeather, helping Indigenous nations run elections.
+					Later, I designed a service line for the BC Public Service, addressing
+					challenges faced by Indigenous youth in care. Eventually, I brought my
+					technical skills to Microsoft.
+				</p>
+				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
+					{" "}
+					I like understanding the problems people face, developing solutions,
+					and showing them why those solutions matter and how they can fit into
+					their lives. I&apos;m driven to create and sell things that are
+					valuable to people.
 				</p>
 				<p className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-6">
 					{" "}
@@ -45,32 +57,16 @@ const About: React.FC = () => {
 					I am seeking opportunities to:{" "}
 				</p>
 				<ul className="text-sm sm:text-md font-extralight sm:font-light text-custom4 mb-">
-					<li>Write clear, tested, modifiable code.</li>
-					<li>
-						Collaborate with product and design teams to develop user interfaces
-						that are mindful of user experiences.
-					</li>
-					<li>
-						Design and implement scalable applications, web services, and APIs.
-					</li>
-					<li>
-						Contribute to project roadmaps, defining scope and learn to scale.
-					</li>
-					<li>
-						Troubleshoot, bug fix, identify bottlenecks, and improve efficiency.
-					</li>
-					<li>
-						Engage in code review and collaborate on architectural decisions.{" "}
-					</li>
-					<li>
-						Communicate effectively through detailed pull request descriptions,
-						technical documentation, and team interactions.
-					</li>
+					<li>Master cold calling</li>
+					<li>Qualify leads with precision</li>
+					<li>Craft compelling email sequences</li>
+					<li>Design and execute outreach strategies</li>
+					<li>Collaborate with AE&apos; and support deal closure</li>
+					<li>Maintain meticulous CRM records</li>
+					<li>Refine tactics through peer collaboration</li>
 					<li>Iterate on team processes</li>
-					<li>
-						Seek and offer constructive feedback to continuously improve the
-						product, team, and individual performance.
-					</li>
+					<li>Consistently outperform quota</li>
+					<li>Foster a culture of continuous improvement</li>
 				</ul>
 			</div>
 		</div>

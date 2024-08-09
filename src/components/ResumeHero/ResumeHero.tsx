@@ -18,7 +18,7 @@ const ResumeHero: React.FC = () => {
 					Dylan LaRocque
 				</h1>
 				<h2 className="text-sm sm:text-md font-light sm:font-normal text-custom4">
-					Software Engineer
+					Builder and Seller
 				</h2>
 				<h2 className="text-sm sm:text-md font-light sm:font-normal text-custom4">
 					Vancouver, BC
